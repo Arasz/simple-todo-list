@@ -1,18 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <title> Simple TODO </title>
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/> 
-    </head>
-    <body>
-        <div class="container container--with-border">
-            <div class="row">
-                <div class="col-sm-12 col-md-8 col-md-offset-2">
-                    <h3> Hello World </h3>
+<head>
+    <meta charset="UTF-8" />
+    <title> Simple TODO </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <div class="panel panel-default add-todo-panel">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Panel title</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <input id="todo-input" type="text" name="form-control" placeholder="Dodaj zadanie..." />
+                    </div>
+
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <button type="button" class="btn btn-success btn-block">Dodaj</button>
+                    </div>
                 </div>
             </div>
-        </div> 
-    </body>
+        </div>
+    </div>
+
+</body>
+
+
 </html>
