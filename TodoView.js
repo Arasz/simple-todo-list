@@ -1,3 +1,9 @@
 document.addEventListener("DOMContentLoaded", function(event){
-    alert("DOM loaded!");
+    
+    addTodoBtn = document.querySelector("#add-todo-btn");
+    todoInput = document.querySelector("todo-input");
+
+    addTodoBtn.addEventListener("click", function(event){
+        alert(todoInput.value);
+    })
 })
