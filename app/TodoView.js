@@ -7,6 +7,6 @@ document.addEventListener("DOMContentLoaded", function(event){
         new Todo("Learn something cool")
     ];
 
-    TodoRendere.renderList(todoList);
+    TodoRenderer.renderList(todoList);
 
 })

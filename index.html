@@ -26,24 +26,7 @@
             </div>
         </div>
     </div>
-    <div class="todo-list">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                        <p>Do something today, fast!</p>
-                    </div>
-                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                        <label>
-                            <input type="checkbox"/> Gotowe
-                        </label>
-                    </div>
-                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                        <button type="button" class="btn btn-danger btn-block">Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div id="todo-list-root" class="todo-list">
         <div class="panel panel-default">
             <div class="panel-body">
                 <button type="button" class="btn btn-primary">Show all</button>
@@ -54,6 +37,7 @@
     </div>
     <script src="app/TodoView.js"></script>
     <script src="app/Todo.js"></script>
+    <script src="app/TodoRenderer.js"></script>
 </body>
 
 </html>
