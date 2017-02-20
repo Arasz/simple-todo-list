@@ -1,37 +1,30 @@
 var TodoView = (function (view) {
-    var _todos = [
-        new Todo("Take cat to walk"),
-        new Todo("Make dinner"),
-        new Todo("Learn something cool")
-    ];
 
-    view.addTodo = function(){
-        alert("Add!");
+    TodoService.addTodo("Take cat to walk");
+    TodoService.addTodo("Learn something cool");
+
+
+    view.addTodo = function () {
+        let todoDescription = document.querySelector('#todo-input').value;
+        TodoService.addTodo(todoDescription);
+        view.reloadView();
     };
 
-    view.deleteTodo = function(id){
-        alert("Delete");
-        let removedTodo = _findTodo(id);
-        _todos.splice(_todos.indexOf(removedTodo),1);
-        reload();
+    view.deleteTodo = function (id) {
+        TodoService.deleteTodo(id);
+        view.reloadView();
     };
 
-    view.reload = function(){
-        TodoRenderer.renderList(getTodos());
+    view.reloadView = function () {
+        TodoRenderer.renderList(view.getTodos());
     }
 
-    _findTodo = function(id){
-        return _todos.find((todo, index)=> todo.id === id);
+    view.changeState = function (checkbox, id) {
+        TodoService.changeState(checkbox.checked, id);
     };
 
-    view.changeState = function(checkbox, id){
-        alert("Change!");
-        let todo = _findTodo(id);
-        todo.isCompleted = checkbox.checked;
-    };
-
-    view.getTodos = function(){
-        return _todos;
+    view.getTodos = function () {
+        return TodoService.getTodos();
     };
 
     return view;
