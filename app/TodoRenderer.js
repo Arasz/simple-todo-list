@@ -40,7 +40,7 @@ var TodoRenderer = (function(renderer){
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <label>
-                            <input type="checkbox" onClick="TodoView.changeState(this, ${todo.id});" ${todo.isCompleted? 'checkd' : ''}> 
+                            <input type="checkbox" onClick="TodoView.changeState(this, ${todo.id});" ${todo.isCompleted? 'checked' : ''}> 
                         Is completed 
                         </label>
                     </div>

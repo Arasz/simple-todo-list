@@ -18,7 +18,7 @@ var TodoService = (function (service) {
         _getTodo(id).isCompleted = isCompleted;
     };
 
-    _getTodo = function (id) {
+    function _getTodo (id) {
         return _todos.find((todo) => todo.id === id);
     };
 
