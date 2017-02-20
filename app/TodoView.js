@@ -3,10 +3,10 @@ var TodoView = (function (view) {
     TodoService.addTodo("Take cat to walk");
     TodoService.addTodo("Learn something cool");
 
+    let _todoDesciptionInput = document.querySelector('#todo-input');
 
     view.addTodo = function () {
-        let todoDescription = document.querySelector('#todo-input').value;
-        TodoService.addTodo(todoDescription);
+        TodoService.addTodo(_getAndClearDescription());
         view.reloadView();
     };
 
@@ -26,6 +26,12 @@ var TodoView = (function (view) {
     view.getTodos = function () {
         return TodoService.getTodos();
     };
+
+    function _getAndClearDescription(){
+        let description = _todoDesciptionInput.value;
+        _todoDesciptionInput.value = '';
+        return description;
+    }
 
     return view;
 
