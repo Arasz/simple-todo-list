@@ -20,6 +20,12 @@ var TodoView = (function (view) {
         view.reloadView();
     }
 
+    view.showWithSimilarDescription = function(){
+        let partialDescription = _todoDesciptionInput.value;
+        TodoService.setFilter(new TodoFilter((todo) => todo.description.includes(partialDescription)));
+        view.reloadView();
+    }
+
     view.showAll = function(){
         TodoService.setFilter(null);
         view.reloadView();
