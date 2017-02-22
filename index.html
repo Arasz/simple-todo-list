@@ -30,12 +30,13 @@
     </div>
     <div class="panel panel-default">
             <div class="panel-body">
-                <button type="button" class="btn btn-primary">Show all</button>
-                <button type="button" class="btn btn-large  btn-default">Show completed</button>
-                <button type="button" class="btn btn-large  btn-default">Show uncompleted</button>
+                <button type="button" class="btn btn-primary" onclick="TodoView.showAll()">Show all</button>
+                <button type="button" class="btn btn-large  btn-default" onclick="TodoView.showCompleted(true)" >Show completed</button>
+                <button type="button" class="btn btn-large  btn-default" onclick="TodoView.showCompleted(false)">Show uncompleted</button>
             </div>
         </div>
     <script src="app/Todo.js"></script>
+    <script src="app/TodoFilter.js"></script>
     <script src="app/TodoService.js"></script>
     <script src="app/TodoRenderer.js"></script>
     <script src="app/TodoView.js"></script>

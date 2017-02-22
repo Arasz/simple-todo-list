@@ -1,9 +1,13 @@
 var TodoService = (function (service) {
 
     var _todos = [];
+    var _todoFilter;
 
     service.getTodos = function () {
-        return _todos;
+        if(_todoFilter)
+            return _todos.filter((todo)=>_todoFilter.filter(todo));
+        else
+            return _todos;
     };
 
     service.deleteTodo = function (id) {
@@ -12,6 +16,10 @@ var TodoService = (function (service) {
 
     service.addTodo = function (description) {
         _todos.push(new Todo(description));
+    };
+
+    service.setFilter = function(todoFilter){
+        _todoFilter = todoFilter;
     };
 
     service.changeState = function (isCompleted, id) {

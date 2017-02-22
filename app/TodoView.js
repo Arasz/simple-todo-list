@@ -15,6 +15,16 @@ var TodoView = (function (view) {
         view.reloadView();
     };
 
+    view.showCompleted = function(showCompleted){
+        TodoService.setFilter(new TodoFilter((todo)=>todo.isCompleted === showCompleted));
+        view.reloadView();
+    }
+
+    view.showAll = function(){
+        TodoService.setFilter(null);
+        view.reloadView();
+    }
+
     view.reloadView = function () {
         TodoRenderer.renderList(view.getTodos());
     }
