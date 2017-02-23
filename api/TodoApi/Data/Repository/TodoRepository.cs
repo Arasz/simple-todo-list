@@ -35,5 +35,7 @@ namespace TodoApi.Data.Repository
             Context.TodoItems.Remove(removedItem);
             Context.SaveChanges();
         }
+
+        public bool Exist(long id) => Context.TodoItems.Any(item => item.Id == id);
     }
 }

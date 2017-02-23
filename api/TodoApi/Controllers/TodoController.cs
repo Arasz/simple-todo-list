@@ -23,14 +23,10 @@ namespace TodoApi.Controllers
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<TodoItem> GetAll()
-        {
-            _logger.LogInformation("Getting all items");
-            return _todoRepository.GetAll();
-        }
+        public IEnumerable<TodoItem> GetAll() => _todoRepository.GetAll();
 
         // GET api/values/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetTodo")]
         public IActionResult GetById(int id)
         {
             var todo = _todoRepository.Find(id);
@@ -44,20 +40,49 @@ namespace TodoApi.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Create([FromBody]TodoItem todoItem)
         {
+            if (todoItem is null)
+                return BadRequest();
+
+            _todoRepository.Add(todoItem);
+
+            return CreatedAtRoute("GetTodo", new {id = todoItem.Id}, todoItem);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Update(int id, [FromBody]TodoItem todoItem)
         {
+            if (todoItem == null || todoItem.Id != id)
+                return BadRequest();
+
+            var updatedTodo = _todoRepository.Find(id);
+
+            if (updatedTodo is null)
+                return NotFound();
+
+            updatedTodo.Update(todoItem);
+
+            _todoRepository.Update(updatedTodo);
+
+            return NoContent();
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+
+            if(!_todoRepository.Exist(id))
+                return BadRequest();
+
+            _todoRepository.Remove(id);
+
+            _logger.LogInformation("Deleted todo with {Id}. Request source {Host}.", id, Request.Host);
+
+
+            return NoContent();
         }
     }
 }
