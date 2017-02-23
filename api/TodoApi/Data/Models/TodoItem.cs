@@ -2,6 +2,11 @@
 {
     public class TodoItem
     {
+        public TodoItem()
+        {
+            
+        }
+
         public TodoItem(string description)
         {
             Description = description;
@@ -11,6 +16,6 @@
 
         public string Description { get; private set; }
 
-        public bool IsCompleted { get; private set; }
+        public bool IsCompleted { get;  set; }
     }
 }

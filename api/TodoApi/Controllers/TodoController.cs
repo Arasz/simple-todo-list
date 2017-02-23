@@ -15,7 +15,7 @@ namespace TodoApi.Controllers
         private readonly ITodoRepository _todoRepository;
         private readonly ILogger _logger;
 
-        public TodoController(ITodoRepository todoRepository, ILogger logger)
+        public TodoController(ITodoRepository todoRepository, ILogger<TodoController> logger)
         {
             _todoRepository = todoRepository;
             _logger = logger;
@@ -23,7 +23,11 @@ namespace TodoApi.Controllers
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<TodoItem> GetAll() => _todoRepository.GetAll();
+        public IEnumerable<TodoItem> GetAll()
+        {
+            _logger.LogInformation("Getting all items");
+            return _todoRepository.GetAll();
+        }
 
         // GET api/values/5
         [HttpGet("{id}")]
