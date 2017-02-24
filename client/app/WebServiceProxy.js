@@ -28,14 +28,14 @@
 
     update(id, todoItem){
         let request = new XMLHttpRequest();
-        request.open("PUT", `${this.baseAddress}/${id}`);
+        request.open("PUT", `${this.baseAddress}/${id}`, false);
         request.setRequestHeader("Content-Type","application/json");
         request.send(JSON.stringify(todoItem));
     }
 
     delete(id){
         let request = new XMLHttpRequest();
-        request.open("DELETE", `${this.baseAddress}/${id}`);
+        request.open("DELETE", `${this.baseAddress}/${id}`, false);
         request.setRequestHeader("Content-Type","application/json");
         request.send();
     }
