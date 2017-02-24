@@ -5,6 +5,7 @@ var TodoView = (function (view) {
 
     view.addTodo = function () {
         TodoService.addTodo(_getAndClearDescription());
+        TodoService.setFilter(null);
         view.reloadView();
     };
 
