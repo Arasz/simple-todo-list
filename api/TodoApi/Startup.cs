@@ -30,7 +30,7 @@ namespace TodoApi
             services.AddEntityFramework()
                 .AddDbContext<ApplicationContext>( options =>  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddSingleton<ITodoRepository, TodoRepository>();
+            services.AddTransient<ITodoRepository, TodoRepository>();
             services.AddLogging();
 
             // Add framework services.
