@@ -1,9 +1,12 @@
 var TodoService = (function (service) {
 
+    var proxy = new ToDoWebServiceProxy("http://localhost:60033/api/todo");
+
     var _todos = [];
     var _todoFilter;
 
     service.getTodos = function () {
+        _todos = proxy.getAll();
         if(_todoFilter)
             return _todos.filter((todo)=>_todoFilter.filter(todo));
         else

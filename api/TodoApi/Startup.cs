@@ -32,6 +32,7 @@ namespace TodoApi
 
             services.AddTransient<ITodoRepository, TodoRepository>();
             services.AddLogging();
+            services.AddCors();
 
             // Add framework services.
             services.AddMvc();
@@ -43,6 +44,10 @@ namespace TodoApi
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
             app.UseMvc();
         }
     }
