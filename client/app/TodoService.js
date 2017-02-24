@@ -1,6 +1,6 @@
 var TodoService = (function (service) {
 
-    var proxy = new ToDoWebServiceProxy("http://localhost:60033/api/todo");
+    var proxy = new TodoWebServiceProxy("http://localhost:60033/api/todo");
 
     var _todos = [];
     var _todoFilter;
@@ -14,11 +14,11 @@ var TodoService = (function (service) {
     };
 
     service.deleteTodo = function (id) {
-        _todos = _todos.filter((toddo) => toddo.id !== id);
+        proxy.delete(id);
     };
 
     service.addTodo = function (description) {
-        _todos.push(new Todo(description));
+        proxy.create(new Todo(description));
     };
 
     service.setFilter = function(todoFilter){
@@ -26,7 +26,9 @@ var TodoService = (function (service) {
     };
 
     service.changeState = function (isCompleted, id) {
-        _getTodo(id).isCompleted = isCompleted;
+        let todo  =_getTodo(id);
+        todo.isCompleted = isCompleted;
+        proxy.update(id, todo);
     };
 
     function _getTodo (id) {

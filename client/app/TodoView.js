@@ -1,7 +1,5 @@
 var TodoView = (function (view) {
 
-    TodoService.addTodo("Take cat to walk");
-    TodoService.addTodo("Learn something cool");
 
     let _todoDesciptionInput = document.querySelector('#todo-input');
 
