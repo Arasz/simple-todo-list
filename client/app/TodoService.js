@@ -1,6 +1,11 @@
 var TodoService = (function (service) {
 
-    var proxy = new TodoWebServiceProxy("http://localhost:60033/api/todo");
+    service.readConfig = function(){
+        service.address = "http://localhost:60033/api/todo";
+    }
+
+    service.readConfig();
+    var proxy = new TodoWebServiceProxy(service.address);
 
     var _todos = [];
     var _todoFilter;
