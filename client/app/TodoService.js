@@ -18,12 +18,13 @@ var TodoService = (function (service) {
                  _todos.filter((todo)=>_todoFilter.filter(todo));
             else
                 return _todos;
-        });
+        })
+        .catch(error => {throw error;});
 
     };
 
     service.deleteTodo = function (id) {
-        proxy.delete(id);
+        return proxy.delete(id);
     };
 
     service.addTodo = function (description) {

@@ -10,28 +10,33 @@ var TodoView = (function (view) {
     };
 
     view.deleteTodo = function (id) {
-        TodoService.deleteTodo(id);
-        view.reloadView();
+        TodoService.deleteTodo(id)
+            .then((result) => {
+                view.reloadView();
+            })
+            .catch((error) => {
+                view.displayError(error);
+            });
     };
 
-    view.showCompleted = function(showCompleted){
-        TodoService.setFilter(new TodoFilter((todo)=>todo.isCompleted === showCompleted));
+    view.showCompleted = function (showCompleted) {
+        TodoService.setFilter(new TodoFilter((todo) => todo.isCompleted === showCompleted));
         view.reloadView();
     }
 
-    view.showWithSimilarDescription = function(){
+    view.showWithSimilarDescription = function () {
         let partialDescription = _todoDesciptionInput.value;
         TodoService.setFilter(new TodoFilter((todo) => todo.description.includes(partialDescription)));
         view.reloadView();
     }
 
-    view.showAll = function(){
+    view.showAll = function () {
         TodoService.setFilter(null);
         view.reloadView();
     }
 
     view.reloadView = function () {
-        view.getTodos().then((todos) =>{
+        view.getTodos().then((todos) => {
             TodoRenderer.renderList(todos);
         })
     }
@@ -44,13 +49,13 @@ var TodoView = (function (view) {
         return TodoService.getTodos();
     };
 
-    function _getAndClearDescription(){
+    function _getAndClearDescription() {
         let description = _todoDesciptionInput.value;
         _todoDesciptionInput.value = '';
         return description;
     }
 
-    view.displayError = function(error){
+    view.displayError = function (error) {
         alert(error.message);
     }
 
@@ -60,7 +65,7 @@ var TodoView = (function (view) {
 
 document.addEventListener("DOMContentLoaded", function (event) {
     TodoView.getTodos()
-    .then((todos) => TodoRenderer.renderList(todos))
-    .catch((error)=> TodoView.displayError(error));
-    
+        .then((todos) => TodoRenderer.renderList(todos))
+        .catch((error) => TodoView.displayError(error));
+
 });
