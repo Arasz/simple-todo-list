@@ -15,7 +15,7 @@ var TodoService = (function (service) {
         .then((todos) => {
             _todos = todos;
             if(_todoFilter)
-                 _todos.filter((todo)=>_todoFilter.filter(todo));
+                 return _todos.filter((todo)=>_todoFilter.filter(todo));
             else
                 return _todos;
         })
@@ -28,7 +28,7 @@ var TodoService = (function (service) {
     };
 
     service.addTodo = function (description) {
-        proxy.create(new Todo(description));
+        return proxy.create(new Todo(description));
     };
 
     service.setFilter = function(todoFilter){
@@ -38,7 +38,7 @@ var TodoService = (function (service) {
     service.changeState = function (isCompleted, id) {
         let todo  =_getTodo(id);
         todo.isCompleted = isCompleted;
-        proxy.update(id, todo);
+        return proxy.update(id, todo);
     };
 
     function _getTodo (id) {

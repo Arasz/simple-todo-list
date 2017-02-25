@@ -1,34 +1,32 @@
 class TodoWebServiceProxy {
     constructor(baseAddress) {
         this.baseAddress = baseAddress;
-        this.request = null;
     }
 
-    get currentRequest() {
-        if (this.request === null) {
-            this.request = new XMLHttpRequest();
-        }
-        return this.request;
-    }
-
-    makeRequest(method = "GET", relativeAddress = "") {
+    makeRequest(method = "GET", relativeAddress = "", body = null) {
         let promise = new Promise((resolve, reject) => {
-            let request = this.currentRequest;
+
+            let request = new XMLHttpRequest();
+
             request.onerror = (e) => {
-                let error = new TodoException(request.status, request.statusText === "" ? "Connection error" :request.statusText );
+                let error = new TodoException(request.status, request.statusText === "" ? "Connection error" : request.statusText);
                 reject(error);
             };
+
             request.onload = (e) => {
-                if (request.response === "")
+
+                if(request.status >= 400)
+                    request.onerror();
+                else if (request.response === "")
                     resolve();
                 else
                     resolve(JSON.parse(request.response));
             };
 
-                request.open(method, this.baseAddress + relativeAddress);
-                request.setRequestHeader("Content-Type", "application/json");
-                request.send();
-        })
+            request.open(method, this.baseAddress + relativeAddress);
+            request.setRequestHeader("Content-Type", "application/json");
+            request.send(JSON.stringify(body));
+        });
         return promise;
     }
 
@@ -37,25 +35,15 @@ class TodoWebServiceProxy {
     }
 
     get(id) {
-        let request = new XMLHttpRequest();
-        request.open("GET", `${this.baseAddress}/${id}`, false);
-        request.setRequestHeader("Content-Type", "application/json");
-        request.send();
-        return JSON.parse(request.response);
+        return this.makeRequest("GET", `/${id}`);
     }
 
     create(todoItem) {
-        let request = new XMLHttpRequest();
-        request.open("POST", `${this.baseAddress}`, false);
-        request.setRequestHeader("Content-Type", "application/json");
-        request.send(JSON.stringify(todoItem));
+        return this.makeRequest("POST", "", todoItem);
     }
 
     update(id, todoItem) {
-        let request = new XMLHttpRequest();
-        request.open("PUT", `${this.baseAddress}/${id}`, false);
-        request.setRequestHeader("Content-Type", "application/json");
-        request.send(JSON.stringify(todoItem));
+        return this.makeRequest("PUT", `/${id}`, todoItem);
     }
 
     delete(id) {

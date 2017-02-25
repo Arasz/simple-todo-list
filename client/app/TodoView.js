@@ -4,19 +4,18 @@ var TodoView = (function (view) {
     let _todoDesciptionInput = document.querySelector('#todo-input');
 
     view.addTodo = function () {
-        TodoService.addTodo(_getAndClearDescription());
-        TodoService.setFilter(null);
-        view.reloadView();
+        TodoService.addTodo(_getAndClearDescription())
+            .then((result) => {
+                TodoService.setFilter(null);
+                view.reloadView();
+            })
+            .catch((error) => view.displayError(error));
     };
 
     view.deleteTodo = function (id) {
         TodoService.deleteTodo(id)
-            .then((result) => {
-                view.reloadView();
-            })
-            .catch((error) => {
-                view.displayError(error);
-            });
+            .then((result) => view.reloadView())
+            .catch((error) => view.displayError(error));
     };
 
     view.showCompleted = function (showCompleted) {
@@ -36,13 +35,15 @@ var TodoView = (function (view) {
     }
 
     view.reloadView = function () {
-        view.getTodos().then((todos) => {
-            TodoRenderer.renderList(todos);
-        })
+        view.getTodos()
+            .then((todos) => TodoRenderer.renderList(todos))
+            .catch((error) => view.displayError(error));
     }
 
     view.changeState = function (checkbox, id) {
-        TodoService.changeState(checkbox.checked, id);
+        TodoService.changeState(checkbox.checked, id)
+            .then((result) => view.reloadView())
+            .catch((error) => view.displayError(error));;
     };
 
     view.getTodos = function () {
