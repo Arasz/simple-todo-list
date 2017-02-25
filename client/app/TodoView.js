@@ -31,7 +31,9 @@ var TodoView = (function (view) {
     }
 
     view.reloadView = function () {
-        TodoRenderer.renderList(view.getTodos());
+        view.getTodos().then((todos) =>{
+            TodoRenderer.renderList(todos);
+        })
     }
 
     view.changeState = function (checkbox, id) {
@@ -48,10 +50,17 @@ var TodoView = (function (view) {
         return description;
     }
 
+    view.displayError = function(error){
+        alert(error.message);
+    }
+
     return view;
 
 })(TodoView || {});
 
 document.addEventListener("DOMContentLoaded", function (event) {
-    TodoRenderer.renderList(TodoView.getTodos());
+    TodoView.getTodos()
+    .then((todos) => TodoRenderer.renderList(todos))
+    .catch((error)=> TodoView.displayError(error));
+    
 });

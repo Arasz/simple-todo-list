@@ -11,11 +11,15 @@ var TodoService = (function (service) {
     var _todoFilter;
 
     service.getTodos = function () {
-        _todos = proxy.getAll();
-        if(_todoFilter)
-            return _todos.filter((todo)=>_todoFilter.filter(todo));
-        else
-            return _todos;
+        return proxy.getAll()
+        .then((todos) => {
+            _todos = todos;
+            if(_todoFilter)
+                 _todos.filter((todo)=>_todoFilter.filter(todo));
+            else
+                return _todos;
+        });
+
     };
 
     service.deleteTodo = function (id) {
